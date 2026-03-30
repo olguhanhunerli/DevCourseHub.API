@@ -24,14 +24,14 @@ DevCourseHub API is a scalable backend for an online learning platform built wit
 
 ## ✨ Features
 
-- JWT Authentication & Authorization  
-- Course Management  
-- Section & Lesson Structure  
-- Enrollment System  
-- Progress Tracking  
-- Review & Rating System  
-- Pagination & Filtering  
-- Clean Architecture  
+- 🔐 JWT Authentication & Authorization  
+- 📚 Course Management  
+- 🧩 Section & Lesson Structure  
+- 🧑‍🎓 Enrollment System  
+- 📈 Progress Tracking  
+- ⭐ Review & Rating System  
+- 🔍 Pagination & Filtering  
+- 🧼 Clean Architecture  
 
 ---
 
@@ -68,46 +68,115 @@ DevCourseHub/
 
 ---
 
-## 🔐 Default Users
-
-Admin  
-admin@devcoursehub.com / Admin123*
-
-Instructor  
-instructor@devcoursehub.com / Instructor123*
-
-Student  
-student@devcoursehub.com / Student123*
-
----
-
 ## ⚡ Getting Started
+
+### 1. Clone repository
 
 ```bash
 git clone https://github.com/your-username/devcoursehub.git
 cd devcoursehub
+```
+
+---
+
+### 2. Configure Database
+
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Host=localhost;Port=5432;Database=DevCourseHub;Username=postgres;Password=YOUR_PASSWORD"
+}
+```
+
+---
+
+### 3. Apply migrations
+
+```bash
 dotnet ef database update
+```
+
+---
+
+### 4. Run the project
+
+```bash
 dotnet run
 ```
 
-Swagger:  
+---
+
+### 5. Swagger
+
+```
 https://localhost:5001/swagger
+```
+
+---
+
+## 🔐 JWT Authentication
+
+This API uses JWT (JSON Web Token) based authentication.
+
+After login, a token is returned and must be included in requests:
+
+```http
+Authorization: Bearer YOUR_TOKEN
+```
+
+---
+
+## ⚙️ JWT Configuration
+
+```json
+"Jwt": {
+  "Key": "YOUR_SECRET_KEY",
+  "Issuer": "DevCourseHub",
+  "Audience": "DevCourseHubUsers",
+  "ExpiryMinutes": 60
+}
+```
+
+---
+
+## ⚠️ Security Notice
+
+- Never store real secrets in the repository  
+- Replace `YOUR_SECRET_KEY` with your own secure key  
+- Use local config or environment variables  
+
+---
+
+## 🔑 Using .NET User Secrets
+
+```bash
+dotnet user-secrets init
+dotnet user-secrets set "Jwt:Key" "your_real_secret_key"
+```
+
+---
+
+## 👥 Default Users
+
+```
+Admin
+admin@devcoursehub.com / Admin123*
+
+Instructor
+instructor@devcoursehub.com / Instructor123*
+
+Student
+student@devcoursehub.com / Student123*
+```
 
 ---
 
 ## 🧠 Key Concepts
 
 - Clean Architecture  
-- Repository + Unit of Work  
+- Repository Pattern  
+- Unit of Work  
 - DTO & AutoMapper  
 - JWT Authentication  
-
----
-
-## 🔒 Security
-
-Sensitive data is NOT stored in repo.  
-Use local config or environment variables.
 
 ---
 
@@ -116,10 +185,22 @@ Use local config or environment variables.
 1. Fork  
 2. Create branch  
 3. Commit  
-4. PR  
+4. Open Pull Request  
+
+---
+
+## 📄 License
+
+MIT
 
 ---
 
 ## 👨‍💻 Author
 
 Olguhan Hünerli
+
+---
+
+## ⭐ Support
+
+If you like this project, consider giving it a star ⭐
