@@ -15,11 +15,11 @@ namespace DevCourseHub.Application.Mappings
         {
             CreateMap<Course, CourseDto>()
                .ForMember(dest => dest.Level, opt => opt.MapFrom(src => src.Level.ToString()))
-               .ForMember(dest => dest.InstructorName, opt => opt.MapFrom(src => src.Instructor.FullName));
+               .ForMember(dest => dest.InstructorName, opt => opt.MapFrom(src => src.Instructor.FullName)).ReverseMap();
 
             CreateMap<Course, CourseDetailDto>()
                 .ForMember(dest => dest.Level, opt => opt.MapFrom(src => src.Level.ToString()))
-                .ForMember(dest => dest.InstructorName, opt => opt.MapFrom(src => src.Instructor.FullName));
+                .ForMember(dest => dest.InstructorName, opt => opt.MapFrom(src => src.Instructor.FullName)).ReverseMap();
             ;
         }
     }

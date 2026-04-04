@@ -23,7 +23,7 @@ namespace DevCourseHub.Infrastructure.Repository
                 .OrderByDescending(c => c.CreatedAt);
         }
 
-        public  IQueryable<Course> GetCourseByInstructorQueryable(Guid instructorId)
+        public IQueryable<Course> GetCourseByInstructorQueryable(Guid instructorId)
         {
             return _context.Courses
                 .Include(c => c.Instructor)
@@ -47,12 +47,13 @@ namespace DevCourseHub.Infrastructure.Repository
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public  IQueryable<Course> GetPublishedCoursesQueryable()
+        public IQueryable<Course> GetPublishedCoursesQueryable()
         {
             return _context.Courses
                  .Where(x => x.IsPublished)
+                 .Include(x => x.Instructor)
                  .OrderByDescending(x => x.CreatedAt);
-                
+
         }
     }
 }

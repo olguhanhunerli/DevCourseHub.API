@@ -8,7 +8,7 @@ namespace DevCourseHub.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthController: ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
 
@@ -40,12 +40,19 @@ namespace DevCourseHub.API.Controllers
             {
                 return Unauthorized();
             }
-            
+
             var user = await _authService.GetCurrentUserAsync(userId);
             if (user is null)
                 return NotFound();
             return Ok(user);
         }
+        [HttpPost("logout")]
+        [Authorize]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("token");
+            return Ok("Logout işlemi başarılı.");
 
+        }
     }
 }
