@@ -27,6 +27,7 @@ namespace DevCourseHub.Application.DependencyInjection
             services.AddScoped<IEnrollmentService, EnrollmentService>();
             services.AddScoped<IProgressService, ProgressService>();
             services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<ICategoryService, CategoryServices>();
 
             return services;
         }

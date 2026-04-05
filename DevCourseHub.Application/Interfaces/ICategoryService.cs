@@ -14,7 +14,7 @@ namespace DevCourseHub.Application.Interfaces
         Task<List<CategoryDto>> GetAllDropdownAsync();
         Task<CategoryDetailDto> GetByIdAsync(Guid id);
         Task<CategoryDetailDto> CreateAsync(CreateCategoryDto createCategoryDto);
-        Task<CreateCategoryDto> UpdateAsync(UpdateCategoryDto updateCategoryDto);
+        Task<CategoryDetailDto> UpdateAsync(Guid id, UpdateCategoryDto updateCategoryDto);
         Task<bool> DeleteAsync(Guid id);
     }
 }

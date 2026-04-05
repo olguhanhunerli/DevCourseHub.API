@@ -16,7 +16,7 @@ namespace DevCourseHub.Infrastructure.Repository
         {
         }
 
-        public IQueryable<Category> GetAllWithCourses()
+        public IQueryable<Category> GetAllQueryable()
         {
             return _context.Categories.OrderBy(x => x.Name);
         }

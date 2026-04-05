@@ -34,6 +34,7 @@ namespace DevCourseHub.Infrastructure.UnitOfWork
             Sections = new SectionRepository(context);
             Enrollments = new EnrollmentRepository(context);
             LessonsProgress = new LessonProgressRepository(context);
+            CourseReviews = new CourseReviewRepository(context);
             Categories = new CategoryRepository(context);
         }
 

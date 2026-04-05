@@ -33,6 +33,10 @@ namespace DevCourseHub.Application.Services
             var currentUserId = _currentUserService.UserId;
             if(currentUserId is null)
                 throw new UnauthorizedAccessException("Kullanıcı doğrulanamadı.");
+
+            var category = await _unitOfWork.Categories.GetByIdAsync(request.CategoryId);
+            if(category is null)
+                throw new Exception("Kategori bulunamadı.");
             var course = new Course
             {
                 Title = request.Title,
@@ -134,6 +138,10 @@ namespace DevCourseHub.Application.Services
             var course = await GetOwnerAdminCourseAsync(id);
             if (!Enum.TryParse<CourseLevel>(request.Level, true, out var level))
                 return null;
+
+            var category = await _unitOfWork.Categories.GetByIdAsync(request.CategoryId);
+            if (category == null)
+                throw new Exception("Kategori bulunamadı.");
 
             course.Title = request.Title;
             course.Description = request.Description;

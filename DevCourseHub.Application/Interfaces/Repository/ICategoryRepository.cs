@@ -9,7 +9,7 @@ namespace DevCourseHub.Application.Interfaces.Repository
 {
     public interface ICategoryRepository : IGenericRepository<Category>
     {
-        IQueryable<Category> GetAllWithCourses();
+        IQueryable<Category> GetAllQueryable();
         Task<Category?> GetByIdAsync(Guid id);
         Task<Category?> GetByNameAsync(string name);
         Task<bool> ExistsByNameAsync(string name);
