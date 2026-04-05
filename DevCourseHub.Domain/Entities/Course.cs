@@ -13,7 +13,8 @@ namespace DevCourseHub.Domain.Entities
        
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public string Category { get; set; } = string.Empty;
+        public Guid CategoryId { get; set; }
+        public Category Category { get; set; } = null!;
         public CourseLevel Level { get; set; } = CourseLevel.Beginner;
         public string? ThumbnailUrl { get; set; }
         public bool IsPublished { get; set; } = false;

@@ -93,7 +93,7 @@ namespace DevCourseHub.Application.Services
             {
                 var category = query.Category.Trim().ToLower();
                 enrollmentQuery = enrollmentQuery.Where(x =>
-                    x.Course.Category.ToLower() == category);
+                    x.Course.Category.Name.ToLower() == category);
             }
 
             if (!string.IsNullOrWhiteSpace(query.Level) &&

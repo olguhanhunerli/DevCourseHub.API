@@ -53,13 +53,43 @@ namespace DevCourseHub.Infrastructure.Persistence.Seed
 
             await context.Users.AddRangeAsync(admin, instructor, student);
             await context.SaveChangesAsync();
+            var backendCategory = new Category
+            {
+                Id = Guid.NewGuid(),
+                Name = "Backend"
+            };
 
+            var frontendCategory = new Category
+            {
+                Id = Guid.NewGuid(),
+                Name = "Frontend"
+            };
+
+            var databaseCategory = new Category
+            {
+                Id = Guid.NewGuid(),
+                Name = "Database"
+            };
+
+            var securityCategory = new Category
+            {
+                Id = Guid.NewGuid(),
+                Name = "Security"
+            };
+
+            await context.Categories.AddRangeAsync(
+                backendCategory,
+                frontendCategory,
+                databaseCategory,
+                securityCategory);
+
+            await context.SaveChangesAsync();
             var course1 = new Course
             {
                 Id = Guid.NewGuid(),
                 Title = "ASP.NET Core Web API Mastery",
                 Description = "Learn how to build production-ready Web APIs with ASP.NET Core, EF Core, JWT and clean architecture.",
-                Category = "Backend",
+                CategoryId = backendCategory.Id,
                 Level = CourseLevel.Intermediate,
                 ThumbnailUrl = "https://picsum.photos/200/300",
                 IsPublished = true,
@@ -72,7 +102,7 @@ namespace DevCourseHub.Infrastructure.Persistence.Seed
                 Id = Guid.NewGuid(),
                 Title = "React for Modern Frontend",
                 Description = "Build modern frontend applications with React, hooks, routing and reusable components.",
-                Category = "Frontend",
+                CategoryId = frontendCategory.Id,
                 Level = CourseLevel.Beginner,
                 ThumbnailUrl = "https://picsum.photos/200/300",
                 IsPublished = true,
@@ -85,7 +115,7 @@ namespace DevCourseHub.Infrastructure.Persistence.Seed
                 Id = Guid.NewGuid(),
                 Title = "PostgreSQL Essentials",
                 Description = "Master relational database design, indexing, querying and optimization with PostgreSQL.",
-                Category = "Database",
+                CategoryId = databaseCategory.Id,
                 Level = CourseLevel.Beginner,
                 ThumbnailUrl = "https://picsum.photos/200/300",
                 IsPublished = true,
@@ -98,7 +128,7 @@ namespace DevCourseHub.Infrastructure.Persistence.Seed
                 Id = Guid.NewGuid(),
                 Title = "Advanced Authentication Systems",
                 Description = "Deep dive into JWT, refresh tokens, authorization strategies and secure backend design.",
-                Category = "Security",
+                CategoryId = securityCategory.Id,
                 Level = CourseLevel.Advanced,
                 ThumbnailUrl = "https://picsum.photos/200/300",
                 IsPublished = false,

@@ -37,7 +37,7 @@ namespace DevCourseHub.Application.Services
             {
                 Title = request.Title,
                 Description = request.Description,
-                Category = request.Category,
+                CategoryId = request.CategoryId,
                 Level = level,
                 IsPublished = false,
                 UpdatedAt = DateTime.UtcNow,
@@ -93,11 +93,11 @@ namespace DevCourseHub.Application.Services
             var averageRating = reviewCount > 0 ? await reviewQuery.AverageAsync(r => r.Rating) : 0;
 
             var result = _mapper.Map<CourseDetailDto>(course);
-
+           
             result.ReviewCount = reviewCount;
             result.AverageRating = averageRating;
 
-            return _mapper.Map<CourseDetailDto>(course);
+            return result;
 
         }
 
@@ -114,6 +114,12 @@ namespace DevCourseHub.Application.Services
         public async Task<bool> PublishedAsync(Guid id)
         {
             var course = await GetOwnerAdminCourseAsync(id);
+            
+            await ValidateCourseForPublishAsync(id);
+
+            if(course.IsPublished)
+                throw new Exception("Kurs zaten yayınlanmış.");
+
             course.IsPublished = true;
             course.UpdatedAt = DateTime.UtcNow;
 
@@ -131,7 +137,7 @@ namespace DevCourseHub.Application.Services
 
             course.Title = request.Title;
             course.Description = request.Description;
-            course.Category = request.Category;
+            course.CategoryId = request.CategoryId;
             course.Level = level;
             course.UpdatedAt = DateTime.UtcNow;
             course.ThumbnailUrl = "https://picsum.photos/200/300";
@@ -154,7 +160,7 @@ namespace DevCourseHub.Application.Services
             if (!string.IsNullOrWhiteSpace(query.Category))
             {
                 var category = query.Category.Trim().ToLower();
-                coursesQuery = coursesQuery.Where(x => x.Category.ToLower() == category);
+                coursesQuery = coursesQuery.Where(x => x.Category.Name.ToLower() == category);
             }
 
             if (!string.IsNullOrWhiteSpace(query.Level) &&
@@ -213,6 +219,39 @@ namespace DevCourseHub.Application.Services
 
             throw new UnauthorizedAccessException("Bu işlemi gerçekleştirmek için yetkiniz yok.");
         }
+
+        private async Task ValidateCourseForPublishAsync(Guid courseId)
+        {
+            var course = await _unitOfWork.Courses.GetCourseDetailAsync(courseId);
+
+            if (course is null)
+                throw new Exception("Course bulunamadı.");
+
+            var errors = new List<string>();
+
+            if (string.IsNullOrWhiteSpace(course.Title))
+                errors.Add("Kurs başlığı zorunludur.");
+
+            if (string.IsNullOrWhiteSpace(course.Description))
+                errors.Add("Kurs açıklaması zorunludur.");
+
+            if (course.CategoryId == Guid.Empty)
+                errors.Add("Kurs kategorisi zorunludur.");
+
+            if (course.Sections is null || !course.Sections.Any())
+            {
+                errors.Add("Kurs yayınlanabilmesi için en az 1 bölüm içermelidir.");
+            }
+            else
+            {
+                if (course.Sections.Any(s => s.Lessons == null || !s.Lessons.Any()))
+                    errors.Add("Her bölümde en az 1 ders olmalıdır.");
+            }
+
+            if (errors.Any())
+                throw new Exception(string.Join(" ", errors));
+        }
+
     }
 }
 

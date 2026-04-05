@@ -92,11 +92,7 @@ namespace DevCourseHub.API.Controllers
         public async Task<IActionResult> PublishCourse(Guid id)
         {
             var published = await _courseService.PublishedAsync(id);
-
-            if (!published)
-                return NotFound();
-
-            return NoContent();
+            return Ok(new { message = "Kurs başarıyla yayınlandı." });
         }
 
 

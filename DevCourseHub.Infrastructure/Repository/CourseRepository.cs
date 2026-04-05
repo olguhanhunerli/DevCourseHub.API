@@ -20,6 +20,7 @@ namespace DevCourseHub.Infrastructure.Repository
         {
             return _context.Courses
                 .Include(c => c.Instructor)
+                .Include(c => c.Category)
                 .OrderByDescending(c => c.CreatedAt);
         }
 
@@ -27,6 +28,8 @@ namespace DevCourseHub.Infrastructure.Repository
         {
             return _context.Courses
                 .Include(c => c.Instructor)
+                .Include(c => c.Category)
+
                 .Where(x => x.InstructorId == instructorId)
                 .OrderByDescending(c => c.CreatedAt);
         }
@@ -35,6 +38,8 @@ namespace DevCourseHub.Infrastructure.Repository
         {
             return await _context.Courses
                 .Include(x => x.Instructor)
+                .Include(c => c.Category)
+
                 .Include(x => x.Sections)
                     .ThenInclude(s => s.Lessons)
                 .FirstOrDefaultAsync(x => x.Id == id);
@@ -44,6 +49,7 @@ namespace DevCourseHub.Infrastructure.Repository
         {
             return await _context.Courses
                 .Include(x => x.Instructor)
+                .Include(c => c.Category)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
@@ -52,6 +58,7 @@ namespace DevCourseHub.Infrastructure.Repository
             return _context.Courses
                  .Where(x => x.IsPublished)
                  .Include(x => x.Instructor)
+                 .Include(c => c.Category)
                  .OrderByDescending(x => x.CreatedAt);
 
         }

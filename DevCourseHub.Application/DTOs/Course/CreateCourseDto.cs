@@ -10,7 +10,7 @@ namespace DevCourseHub.Application.DTOs.Course
     {
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public string Category { get; set; } = string.Empty;
+        public Guid CategoryId { get; set; } 
         public string Level { get; set; } = string.Empty;
         //public string? ThumbnailUrl { get; set; }
 

@@ -25,9 +25,6 @@ namespace DevCourseHub.Infrastructure.Persistence.Configurations
                 .IsRequired()
                 .HasMaxLength(2000);
 
-            builder.Property(x => x.Category)
-                .IsRequired()
-                .HasMaxLength(100);
 
             builder.Property(x => x.Level)
                 .IsRequired();
@@ -59,9 +56,14 @@ namespace DevCourseHub.Infrastructure.Persistence.Configurations
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(x => x.Instructor)
-            .WithMany(x => x.Courses)
-            .HasForeignKey(x => x.InstructorId)
-            .OnDelete(DeleteBehavior.Restrict);
+                .WithMany(x => x.Courses)
+                .HasForeignKey(x => x.InstructorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.Category)
+                .WithMany(x => x.Courses)
+                .HasForeignKey(x => x.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

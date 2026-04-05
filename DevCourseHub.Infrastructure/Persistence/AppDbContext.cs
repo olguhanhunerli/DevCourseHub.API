@@ -21,6 +21,7 @@ namespace DevCourseHub.Infrastructure.Persistence
         public DbSet<Enrollment> Enrollments => Set<Enrollment>();
         public DbSet<LessonProgress> LessonProgresses => Set<LessonProgress>();
         public DbSet<CourseReview> CourseReviews => Set<CourseReview>();
+        public DbSet<Category> Categories => Set<Category>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

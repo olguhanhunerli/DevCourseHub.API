@@ -11,7 +11,8 @@ namespace DevCourseHub.Application.DTOs.Enrollment
         public Guid Id { get; set; }
         public Guid CourseId { get; set; }
         public string CourseTitle { get; set; } = string.Empty;
-        public string Category { get; set; } = string.Empty;
+        public Guid CategoryId { get; set; } 
+        public string CategoryName { get; set; } 
         public string Level { get; set; } = string.Empty;
         public DateTime EnrollAt { get; set; }
     }
