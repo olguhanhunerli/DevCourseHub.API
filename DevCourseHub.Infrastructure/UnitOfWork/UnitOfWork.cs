@@ -23,6 +23,7 @@ namespace DevCourseHub.Infrastructure.UnitOfWork
         public IEnrollmentRepository Enrollments { get; }
         public ILessonProgressRepository LessonsProgress { get; }
         public ICourseReviewRepository CourseReviews { get; }
+        public ICategoryRepository Categories { get; }
 
         public UnitOfWork(AppDbContext context)
         {
@@ -33,7 +34,7 @@ namespace DevCourseHub.Infrastructure.UnitOfWork
             Sections = new SectionRepository(context);
             Enrollments = new EnrollmentRepository(context);
             LessonsProgress = new LessonProgressRepository(context);
-            CourseReviews = new CourseReviewRepository(context);
+            Categories = new CategoryRepository(context);
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

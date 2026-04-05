@@ -16,6 +16,7 @@ namespace DevCourseHub.Application.Interfaces
         IEnrollmentRepository Enrollments { get; }
         ILessonProgressRepository LessonsProgress { get; }
         ICourseReviewRepository CourseReviews { get; }
+        ICategoryRepository Categories { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }
